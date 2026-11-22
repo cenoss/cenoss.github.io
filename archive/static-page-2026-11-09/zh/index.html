@@ -1,0 +1,559 @@
+<!doctype html>
+<html lang="zh-Hant-TW" data-type="software" data-radius="soft" data-ground="sage" data-buttons="arrow" data-motion>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>第四組：東森新聞雲 ETtoday 平台策略分析</title>
+<meta name="description" content="CDPS-EMI 1151 期末專題：以逐列查核的公開資料，檢驗 ETtoday 的平台策略能否解釋其 2025 年 7 月轉虧為盈。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="第四組：東森新聞雲 ETtoday 平台策略分析">
+<meta property="og:description" content="ETtoday 的平台策略能否解釋 2025 年 7 月的轉虧為盈？六個問題、三個課程視角、公開資料。">
+<meta property="og:image" content="../share.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="alternate" hreflang="en" href="../">
+<meta name="theme-color" content="#f8f8f8">
+<!-- <link rel="canonical" href="https://[GitHub Pages address, still to come]/"> -->
+<meta name="site-kind" content="software">
+<meta name="page-type" content="software">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@75..100,400..700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/system.css">
+<link rel="stylesheet" href="../assets/ui/cards.css">
+<link rel="stylesheet" href="../assets/motion/motion.css">
+<link rel="stylesheet" href="../assets/backgrounds/backgrounds.css">
+<link rel="stylesheet" href="../assets/layout/layout.css">
+<link rel="stylesheet" href="../assets/icons/icon.css">
+<style>
+:root {
+  --p-bg: #f8f8f8; --p-surface: #eeeeee; --p-ink: #0a0a0a; --p-muted: #6a6a6a;
+  --p-accent: #1f6b3a; --p-accent-ink: #ffffff; --p-action: #1f6b3a; --p-action-ink: #ffffff;
+  --p-inv-bg: #0a0a0a; --p-inv-surface: #171717; --p-inv-ink: #f8f8f8; --p-inv-muted: #939393;
+  --p-inv-accent: #1f6b3a; --p-inv-accent-ink: #ffffff; --p-inv-action: #1f6b3a; --p-inv-action-ink: #ffffff;
+  --font-display: "Instrument Sans", system-ui, sans-serif;
+  --font-text: "Instrument Sans", system-ui, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --display-weight: 500;
+  --display-tracking: -0.028em;
+  --display-tracking-xl: -0.036em;
+  --display-stretch: 96%;
+  --ly-scale: 1.04;
+}
+</style>
+<link rel="stylesheet" href="../assets/ui/base.css">
+<link rel="stylesheet" href="../assets/ui/window/fragment.css">
+<link rel="stylesheet" href="../assets/ui/checklist/fragment.css">
+<link rel="stylesheet" href="../assets/ui/doc/fragment.css">
+<link rel="stylesheet" href="../assets/ui/integrations/fragment.css">
+<link rel="stylesheet" href="../assets/ui/notify/fragment.css">
+<link rel="stylesheet" href="../assets/ui/slider/fragment.css">
+<link rel="stylesheet" href="../assets/ui/toggles/fragment.css">
+<link rel="stylesheet" href="../assets/ui/files/fragment.css">
+<link rel="stylesheet" href="../assets/diagrams/diagram.css">
+<script>document.documentElement.classList.add('m-enter');setTimeout(()=>document.documentElement.classList.add('m-enter-done'),700)</script>
+<script src="../assets/backgrounds/backgrounds.js"></script>
+<script>document.documentElement.classList.add('mo-js');setTimeout(()=>document.documentElement.classList.add('mo-safe'),2500)</script>
+<link rel="modulepreload" href="../assets/moments/moments.js">
+<link rel="modulepreload" href="../assets/moments/lib.js">
+<link rel="modulepreload" href="../assets/moments/word-highlight/moment.js">
+<link rel="modulepreload" href="../assets/moments/iris-opens/moment.js">
+<style>
+  /* hero collage: the small card over the window's lower-left corner */
+  .hero__art > .ly-piece--note { left: var(--s-6); bottom: var(--s-6); width: 300px; z-index: 2; }
+  @media (max-width: 1023px) { .hero__art > .ly-piece--note { left: var(--s-4); bottom: var(--s-4); width: 270px; } }
+  /* app-frame (sections-library.md, app-frame) */
+  .app.ui { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); margin-top: var(--s-7); background: var(--u-bg); border: 1px solid var(--u-border); border-radius: var(--u-r); box-shadow: var(--u-shadow); }
+  .app > .app__pane { position: relative; min-width: 0; min-height: 0; overflow: hidden; }
+  .app > .app__pane + .app__pane { border-left: 1px solid var(--u-line); }
+  .app > .app__pane > .ui-panel { width: 100%; border: 0; border-radius: 0; box-shadow: none; }
+  .app > .app__pane::after { content: ""; position: absolute; inset: auto 0 0 0; height: 64px; background: linear-gradient(transparent, var(--u-bg)); pointer-events: none; }
+  .app > .app__pane--open > .ui-doc { width: 100%; height: calc(100% + 72px); padding: var(--s-6) 264px 0 var(--s-6); }
+  .app > .app__pane--open .ui-doc__note { right: var(--s-6); width: 208px; }
+  @media (max-width: 1279px) { .app > .app__pane--open > .ui-doc { padding-right: var(--s-6); } .app > .app__pane--open .ui-doc__note { display: none; } }
+  @media (min-width: 1024px) and (max-width: 1279px) { .app.ui { grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); } }
+  @media (max-width: 1023px) {
+    .app.ui { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); }
+    .app > .app__pane--list { max-height: 252px; }
+    .app > .app__pane--list::after { display: none; }
+    .app .ui-win__side { display: none; }
+    .app .ui-win__body { grid-template-columns: minmax(0, 1fr); }
+    .app > .app__pane + .app__pane { border-left: 0; border-top: 1px solid var(--u-line); }
+  }
+  @media (max-width: 639px) {
+    .app.ui { grid-template-rows: minmax(0, 1fr); }
+    .app > .app__pane--list { display: none; }
+    .app > .app__pane + .app__pane { border-top: 0; }
+  }
+  /* card group: one panel height */
+  #questions .panel { --p-h: 300px; }
+  @media (max-width: 639px) { #questions .panel { --p-h: 220px; } }
+  /* the pipeline's wide diagram frame */
+  #pipeline .frame--band { height: 360px; margin-top: var(--s-7); }
+  @media (max-width: 639px) { #pipeline .frame--band { height: 420px; } }
+  #pipeline .pipe-steps { margin-top: var(--s-7); }
+  /* the hero window keeps its content clear of the frame's cut on the right */
+  .hero__art .ui-win__main { padding-right: var(--ly-cut-room); }
+  /* the name across the .wrap: hand-set so its capitals and descender stay inside the line */
+  .close__word { line-height: 1.04; }
+  /* the split frames run to the foot of their screen, so every section ends at the same depth */
+  #market .frame--split, #sources .frame--split { --ratio: 108%; }
+  /* tablet (640 to 1023): each section stays one screen */
+  @media (min-width: 640px) and (max-width: 1023px) {
+    #pipeline .frame--band { height: 280px; }
+    #pipeline .pipe-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    #pipeline .pipe-steps > * { grid-column: auto; }
+    #questions .grid > .card { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: var(--s-6); align-content: start; }
+    #questions .grid > .card > :not(.panel) { grid-column: 1; }
+    #questions .grid > .card > .panel { grid-column: 2; grid-row: 1 / span 3; --p-h: 200px; margin-top: 0; }
+  }
+  @media (max-width: 639px) { #market .frame--split { --ratio: 56%; } #sources .frame--split { --ratio: 72%; } }
+  /* the iris moment's inset gutter, so its panel never sits close to the band's edge */
+  #pipeline { --mo-gap: 24px; }
+  /* 1024 to 1279: the two-up cards take two screens, so the pipeline starts on a whole screen and fits one */
+  @media (min-width: 1024px) and (max-width: 1279px) { #questions { --h: 2; } #pipeline .frame--band { height: 220px; } }
+  @media (min-width: 640px) and (max-width: 1023px) {
+    /* the stacked split: the frame takes what the screen leaves under the words */
+    #market .wrap > .grid, #sources .wrap > .grid { flex: 1 1 0; min-height: 0; grid-template-rows: auto minmax(0, 1fr); }
+    #market .frame--split, #sources .frame--split { --ratio: 0%; min-height: 240px; align-self: stretch; }
+    /* the tool icons in one row beside each other */
+    #faq .ic-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+  /* a phone: the language link lives in the footer and the sheet */
+  @media (max-width: 639px) { .nav__actions > .nav__link { display: none; } }
+  /* under 360px the bar holds the logo and the menu; the main action stays in the hero and the close */
+  @media (max-width: 359px) { .nav:not(.is-open) .nav__actions { display: none; } }
+  /* the stack frame (a visual): one row per layer, its name, its tools by their real marks, what it does */
+  #stack .frame--stack { display: block; padding: var(--s-3) var(--s-7); }
+  #stack .stack-layers, #stack .stack-tools { list-style: none; margin: 0; padding: 0; }
+  #stack .stack-layer { display: grid; grid-template-columns: 152px minmax(0, 1fr) 296px; align-items: center; column-gap: var(--s-5); row-gap: var(--s-3); padding: var(--s-5) 0; }
+  #stack .stack-layer + .stack-layer { border-top: 1px solid var(--line); }
+  #stack .stack-layer > h3 { margin: 0; }
+  #stack .stack-layer > p { margin: 0; }
+  #stack .stack-tools { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-3) var(--s-5); }
+  #stack .stack-tool { display: inline-flex; align-items: center; gap: var(--s-3); min-height: 48px; font-weight: 500; }
+  /* under 1440 the screen is shorter: smaller tiles, closer rows */
+  @media (max-width: 1439px) {
+    #stack .frame--stack { padding: var(--s-2) var(--s-6); }
+    #stack .stack-layer { grid-template-columns: 128px minmax(0, 1fr) 260px; padding: var(--s-4) 0; }
+    #stack .stack-tools { gap: var(--s-2) var(--s-4); }
+    #stack .stack-tool { min-height: 40px; }
+    #stack .stack-tool > .ic-tile { --tile: 40px; }
+  }
+  /* 1024 to 1279 (a 768-tall screen): the layer and its tools only, so the section stays one screen */
+  @media (min-width: 1024px) and (max-width: 1279px) {
+    #stack .stack-layer { grid-template-columns: 128px minmax(0, 1fr); }
+    #stack .stack-layer > p { display: none; }
+  }
+  /* tablet: the layer and its role on one line, the tools in a full row under them */
+  @media (min-width: 640px) and (max-width: 1023px) {
+    #stack .stack-layer { grid-template-columns: 128px minmax(0, 1fr); }
+    #stack .stack-layer > p { grid-column: 2; grid-row: 1; }
+    #stack .stack-tools { grid-column: 1 / -1; grid-row: 2; }
+  }
+  @media (max-width: 639px) {
+    #stack .frame--stack { padding: var(--s-1) var(--s-5); }
+    #stack .stack-layer { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>
+</head>
+<body>
+<!-- type: software (site-kind software; a strategy-analysis term project whose product is a bilingual data site)
+     deal: hero collage, nav nav-mega, close close-word, footer footer-statement, rhythm dark-band, buttons arrow,
+     mark ring, palette mint-pink-accounts, type instrument, radius soft, lit ground sage,
+     grounds: none (bg-halo and bg-band were dealt, then dropped: both reset the section box); effect painterly-landscape in the hero art
+     moments: word-highlight in #question (the central question lights up as it is read),
+              iris-opens in #pipeline (the dark band opens onto the pipeline) -->
+
+<header class="nav">
+  <div class="wrap nav__bar">
+    <a class="skip-link" href="#top">跳到主要內容</a>
+    <a class="nav__logo" href="#top"><span class="mark" data-mark="ring" aria-hidden="true"></span>Group 4</a>
+    <nav class="nav__links" aria-label="主選單">
+      <div class="nav__item"><a class="nav__link" href="#site">網站</a></div>
+      <div class="nav__item"><a class="nav__link" href="#market">市場</a></div>
+      <div class="nav__item">
+        <a class="nav__link" href="#questions">問題 <svg class="chev" viewBox="0 0 12 12" aria-hidden="true"><path d="M3 4.5l3 3 3-3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <div class="nav__menu">
+          <div class="wrap grid">
+            <div class="menu-col span-3">
+              <p class="t-label">競合</p>
+              <a href="#questions">AQ1 價值網<span>有哪些參與者</span></a>
+              <a href="#questions">AQ2 是敵是友<span>平台給什麼、拿什麼</span></a>
+            </div>
+            <div class="menu-col span-3">
+              <p class="t-label">競爭動態與平台</p>
+              <a href="#questions">AQ3 行動<span>誰回應、多快回應</span></a>
+              <a href="#questions">AQ4 轉虧為盈<span>靠成本還是營收</span></a>
+              <a href="#questions">AQ5 規則<span>媒體議價法</span></a>
+              <a href="#questions">AQ6 傾斜<span>贏者全拿或多家並存</span></a>
+            </div>
+            <a class="menu-card span-3 start-10" href="#pipeline">
+              <div class="panel"><div class="stage stage--fade-br"><div class="at-corner" style="--ax:24px;--ay:24px">
+                <div class="ui ui-panel ui-toggles" data-ui="toggles" data-ui-still>
+                  <div class="ui-head"><div class="ui-title">編碼表</div><span class="ui-spacer"></span><div class="ui-meta" data-tg-count>顯示 3 類，共 7 類</div></div>
+                  <ul class="ui-toggles__list">
+                    <li class="ui-tg"><span class="ui-tg__text"><span class="ui-tg__label">法規</span><span class="ui-tg__sub">法案、基金、白皮書</span></span><button class="ui-switch is-on" type="button" role="switch" aria-checked="true" aria-label="法規" tabindex="-1"><i></i></button></li>
+                    <li class="ui-tg"><span class="ui-tg__text"><span class="ui-tg__label">人力或 AI</span><span class="ui-tg__sub">編輯台規模與工具</span></span><button class="ui-switch is-on" type="button" role="switch" aria-checked="true" aria-label="人力或 AI" tabindex="-1"><i></i></button></li>
+                    <li class="ui-tg"><span class="ui-tg__text"><span class="ui-tg__label">合作</span><span class="ui-tg__sub">與平台的協議</span></span><button class="ui-switch is-on" type="button" role="switch" aria-checked="true" aria-label="合作" tabindex="-1"><i></i></button></li>
+                  </ul>
+                </div>
+              </div></div></div>
+              <span class="t-card">以固定編碼表標記</span>
+              <span class="t-small muted">七種行動類型</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="nav__item"><a class="nav__link" href="#pipeline">流程</a></div>
+      <div class="nav__item"><a class="nav__link" href="#stack">技術</a></div>
+      <div class="nav__item"><a class="nav__link" href="#sources">來源</a></div>
+    </nav>
+    <div class="nav__actions">
+      <a class="nav__link" href="../" hreflang="en" lang="en">English</a>
+      <a class="btn btn--primary" href="#questions">閱讀六個問題</a>
+    </div>
+    <button class="nav__toggle" type="button" aria-expanded="false" aria-label="選單">
+      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M2 5h14M2 13h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero hero--collage" data-enter aria-labelledby="hero-h">
+    <div class="wrap"><div class="hero-text grid hero__grid">
+      <div class="hero__text span-5">
+        <h1 id="hero-h">ETtoday 平台策略分析</h1>
+        <p class="hero__lead">ETtoday 是台灣使用率最高的網路新聞品牌，每週使用率達 38%，卻曾連續四年虧損。本專題分析其平台策略能否解釋 2025 年 7 月的轉虧為盈。</p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href="#questions">閱讀六個問題<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
+        </div>
+        <p class="hero__proof">CDPS-EMI 1151 第四組期末專題，Track 2。</p>
+      </div>
+      <div class="hero__art span-6 start-7" role="img" aria-label="專題資料表：ETtoday 的每週使用率、信任度與流量數據已查核，另有一筆自行公布的數據等待組員查核" data-fx="painterly-landscape" data-fx-palette='{"bg":"#a3b0b6","accent":"#c49a6c"}' data-fx-params='{"blur":1,"brush":0.35,"slope":0,"hillY":0.3,"horizon":0.62}'>
+        <div class="ly-piece ly-piece--main" aria-hidden="true">
+          <div class="ui ui-panel ui-win" data-ui="window" data-ui-still data-open="排隊中" data-work="查核中" data-done="已查核">
+            <div class="ui-win__bar">
+              <span class="ui-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="ui-win__crumb"><img class="ui-brand" data-icon="google-sheets" src="../assets/icons/google-sheets.svg" alt="" width="30" height="40">資料表 <i>/</i> <b>已驗證</b></span>
+              <span class="ui-spacer"></span>
+              <span class="ui-win__search" aria-hidden="true"><svg class="ui-icon" viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5"/><path d="m10.5 10.5 3 3"/></svg><span class="ui-win__ph">搜尋</span><span class="ui-kbd">/</span></span>
+            </div>
+            <div class="ui-win__body">
+              <nav class="ui-win__side" aria-hidden="true">
+                <span class="ui-win__nav is-on"><svg class="ui-icon" viewBox="0 0 16 16"><path d="m3.5 8.4 2.8 2.8 6.2-6.4"/></svg>已驗證</span>
+                <span class="ui-win__nav"><svg class="ui-icon" viewBox="0 0 16 16"><path d="M2.5 9h3l1 1.5h3l1-1.5h3"/><path d="M2.5 9 4 3.5h8L13.5 9v3.5h-11z"/></svg>暫存</span>
+                <span class="ui-win__nav"><svg class="ui-icon" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.5"/><path d="M8 5v3l2 1.5"/></svg>待查核</span>
+                <span class="ui-win__label">檢視</span>
+                <span class="ui-win__nav"><span class="ui-win__hash">#</span>受眾</span>
+                <span class="ui-win__nav"><span class="ui-win__hash">#</span>財務</span>
+              </nav>
+              <div class="ui-win__main">
+                <div class="ui-win__cols" aria-hidden="true"><span>品牌</span><span>數據</span><span>狀態</span><span>年份</span></div>
+                <ul class="ui-win__rows">
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="1">ET</span><span class="ui-win__who">ETtoday</span><span class="ui-win__sub">每週使用率 38%</span><span class="ui-win__st is-done" data-st>已查核</span><span class="ui-win__age">2026</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="1">ET</span><span class="ui-win__who">ETtoday</span><span class="ui-win__sub">信任度 46%</span><span class="ui-win__st is-done" data-st>已查核</span><span class="ui-win__age">2026</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="4">TW</span><span class="ui-win__who">台灣平均</span><span class="ui-win__sub">新聞信任度 25%</span><span class="ui-win__st is-done" data-st>已查核</span><span class="ui-win__age">2026</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="1">ET</span><span class="ui-win__who">ETtoday</span><span class="ui-win__sub">直接造訪 47.5%</span><span class="ui-win__st is-done" data-st>已查核</span><span class="ui-win__age">2025</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="1">ET</span><span class="ui-win__who">ETtoday</span><span class="ui-win__sub">App 造訪 36.3%</span><span class="ui-win__st is-done" data-st>已查核</span><span class="ui-win__age">2025</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="3">LN</span><span class="ui-win__who">LINE</span><span class="ui-win__sub">用於看新聞 49%</span><span class="ui-win__st is-done" data-st>已查核</span><span class="ui-win__age">2026</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="1">ET</span><span class="ui-win__who">ETtoday</span><span class="ui-win__sub">單日造訪高峰 1,900 萬</span><span class="ui-win__st is-you" data-st>待查核</span><span class="ui-win__age">自報</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="5">DM</span><span class="ui-win__who">DMA</span><span class="ui-win__sub">數位廣告市場 662 億元</span><span class="ui-win__st is-done" data-st>已查核</span><span class="ui-win__age">2025</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="ly-piece ly-piece--note" aria-hidden="true" data-ui-loop>
+          <div class="ui ui-panel ui-checks" data-ui="checklist">
+            <div class="ui-checks__head"><div class="ui-title">單日造訪高峰 1,900 萬</div><span class="ui-spacer"></span><div class="ui-meta" data-checks-count>已完成 2 項，共 3 項</div></div>
+            <div class="ui-checks__bar"><i data-checks-bar style="--k:0.66"></i></div>
+            <ul class="ui-checks__list">
+              <li class="ui-check is-done"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">已附來源網址</span></li>
+              <li class="ui-check is-done"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">已標為自行公布</span></li>
+              <li class="ui-check"><span class="ui-check__box"><svg viewBox="0 0 16 16"><path d="m4.5 8.2 2.3 2.3 4.7-5"/></svg></span><span class="ui-check__label">checked_by 已署名</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div></div>
+  </section>
+
+  <section class="section" id="site" aria-labelledby="site-h">
+    <div class="wrap">
+      <div class="grid grid--top">
+        <h2 class="span-5" id="site-h">第 16 週前上線的網站</h2>
+        <p class="span-6 start-7">自 2025 年 1 月起，每則新聞各成一列，記錄行動者、行動、日期與來源。代理人完成標記後，須經組員查核才會納入圖表。<a class="link" href="#pipeline">查看資料流程</a></p>
+      </div>
+      <div class="ui app fill" role="img" aria-label="網站的行動紀錄：立法院、ETtoday、Google、數發部與公平會的行動依日期排列，媒體議價法那一列已展開，標記顯示在內文上" data-ui-pause-host>
+        <div class="app__pane app__pane--list">
+          <div class="ui ui-panel ui-win" data-ui="window" data-ui-still data-open="排隊中" data-work="標記中" data-done="已標記">
+            <div class="ui-win__bar">
+              <span class="ui-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="ui-win__crumb"><img class="ui-brand" data-icon="google-sheets" src="../assets/icons/google-sheets.svg" alt="" width="30" height="40" loading="lazy">行動紀錄 <i>/</i> <b>2025–2026</b></span>
+              <span class="ui-spacer"></span>
+            </div>
+            <div class="ui-win__body">
+              <nav class="ui-win__side" aria-hidden="true">
+                <span class="ui-win__nav is-on"><svg class="ui-icon" viewBox="0 0 16 16"><path d="M2.5 9h3l1 1.5h3l1-1.5h3"/><path d="M2.5 9 4 3.5h8L13.5 9v3.5h-11z"/></svg>所有行動</span>
+                <span class="ui-win__nav"><svg class="ui-icon" viewBox="0 0 16 16"><circle cx="8" cy="6" r="2.5"/><path d="M3.5 13.5c.6-2.3 2.4-3.5 4.5-3.5s3.9 1.2 4.5 3.5"/></svg>ETtoday</span>
+                <span class="ui-win__nav"><svg class="ui-icon" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.5"/><path d="M8 5v3l2 1.5"/></svg>競爭者</span>
+                <span class="ui-win__label">類型</span>
+                <span class="ui-win__nav"><span class="ui-win__hash">#</span>法規</span>
+                <span class="ui-win__nav"><span class="ui-win__hash">#</span>合作</span>
+              </nav>
+              <div class="ui-win__main">
+                <div class="ui-win__cols" aria-hidden="true"><span>行動者</span><span>行動</span><span>狀態</span><span>日期</span></div>
+                <ul class="ui-win__rows">
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="2">立</span><span class="ui-win__who">立法院</span><span class="ui-win__sub">媒體議價法草案送黨團協商</span><span class="ui-win__st is-done" data-st>已標記</span><span class="ui-win__age">8/6</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="2">立</span><span class="ui-win__who">立法院</span><span class="ui-win__sub">媒體議價法委員會審查</span><span class="ui-win__st is-done" data-st>已標記</span><span class="ui-win__age">5/1</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="1">ET</span><span class="ui-win__who">ETtoday</span><span class="ui-win__sub">導入 AI，人力由 561 降至 385</span><span class="ui-win__st is-done" data-st>已標記</span><span class="ui-win__age">11/6</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="1">ET</span><span class="ui-win__who">ETtoday</span><span class="ui-win__sub">廣告延伸至交通媒體</span><span class="ui-win__st is-done" data-st>已標記</span><span class="ui-win__age">11/6</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="1">ET</span><span class="ui-win__who">ETtoday</span><span class="ui-win__sub">內容電商合作</span><span class="ui-win__st is-done" data-st>已標記</span><span class="ui-win__age">11/6</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="3">G</span><span class="ui-win__who">Google</span><span class="ui-win__sub">承諾 3 億元新聞基金</span><span class="ui-win__st" data-st>未標記</span><span class="ui-win__age">待驗證</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="4">數</span><span class="ui-win__who">數發部</span><span class="ui-win__sub">規劃共享分潤平台</span><span class="ui-win__st" data-st>未標記</span><span class="ui-win__age">待驗證</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="5">公</span><span class="ui-win__who">公平會</span><span class="ui-win__sub">數位經濟競爭政策白皮書</span><span class="ui-win__st" data-st>未標記</span><span class="ui-win__age">待驗證</span></li>
+                  <li class="ui-win__row" data-row><span class="ui-avatar" data-tone="3">NW</span><span class="ui-win__who">NOWnews</span><span class="ui-win__sub">2025 年虧損 1.4 億元</span><span class="ui-win__st" data-st>未標記</span><span class="ui-win__age">2025</span></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="app__pane app__pane--open" data-ui-loop>
+          <div class="ui ui-doc" data-ui="doc">
+            <article class="ui-doc__page">
+              <div class="ui-doc__label">第 1 列 · 立法院 · 2025/8/6</div>
+              <div class="ui-doc__title">媒體議價法草案送交黨團協商</div>
+              <div class="ui-doc__text">媒體議價法草案於<mark class="ui-doc__mark is-on">2025 年 8 月 6 日</mark>送交黨團協商，此前已於 5 月 1 日完成委員會審查。</div>
+              <div class="ui-doc__text">同年數發部開始規劃<mark class="ui-doc__mark" data-kind="合作" data-msg="與 Google 基金那一列相關：同一項規則變動，AQ5。" data-where="第 6 列 · Google · 待驗證">共享訂閱與分潤平台</mark>，Google 也承諾提供 3 億元新聞基金。</div>
+              <div class="ui-doc__text">此事經 Taiwan News 報導，該列附有原文連結。</div>
+              <div class="ui-doc__text">中英文摘要由代理人草擬，並由負責查核的組員修訂。</div>
+            </article>
+            <aside class="ui-doc__note ui-panel is-on" aria-live="polite">
+              <div class="ui-doc__kind"><span class="ui-doc__dot"></span><span data-doc-kind>法規</span></div>
+              <div class="ui-doc__msg" data-doc-msg>PARTS 的規則槓桿，供 AQ5 與時間軸使用。</div>
+              <div class="ui-doc__where" data-doc-where>已附來源網址 · checked_by 尚未署名</div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="market" aria-labelledby="market-h">
+    <div class="wrap">
+      <div class="grid grid--top">
+        <div class="span-5 stack-5">
+          <h2 id="market-h">台灣新聞產業的兩個層次</h2>
+          <p class="t-lead">ETtoday、TVBS、聯合新聞網等新聞編輯台負責產製新聞，LINE、YouTube 與 Facebook 則決定誰看得到。ETtoday 經營自有的雙邊平台，同時也為這些大型平台供應內容。</p>
+          <ul class="stack-3">
+            <li>LINE 49%、YouTube 48%、Facebook 47% 的人用來看新聞</li>
+            <li>2025 年數位廣告市場 662 億元</li>
+            <li>成長集中在國際平台</li>
+          </ul>
+          <p><a class="link" href="#sources">閱讀資料來源</a></p>
+        </div>
+        <div class="frame frame--split span-6 start-7">
+          <div class="dg" data-diagram data-dg-still><script type="application/json">{"layout":"bowtie","alt":"ETtoday、TVBS、東森新聞網與三立的新聞，經由 LINE、YouTube、Facebook 與 Google 觸及讀者。","sources":[{"label":"ETtoday","icon":"ui:newspaper","sub":"每週使用率 38%"},{"label":"TVBS","icon":"ui:newspaper","sub":"31%"},{"label":"東森新聞網","icon":"ui:newspaper","sub":"23%"},{"label":"三立","icon":"ui:newspaper","sub":"20%"}],"core":{"label":"新聞內容","icon":"ui:files"},"targets":[{"label":"LINE","icon":"ui:message-circle","sub":"49% 用來看新聞"},{"label":"YouTube","icon":"youtube","sub":"48%"},{"label":"Facebook","icon":"facebook","sub":"47%"},{"label":"Google","icon":"logos:google-icon","sub":"搜尋"}]}</script></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section statement" id="question" data-moment="word-highlight" aria-labelledby="question-h">
+    <div class="wrap">
+      <h2 class="t-label" id="question-h">核心問題</h2>
+      <p class="mo-wh__text">ETtoday 的平台策略，包括網路效應、營收模式，以及與 LINE、Google、Meta 和 YouTube 的往來，能否解釋 <strong>2025 年的轉虧為盈</strong>？這樣的轉變能否持續？</p>
+    </div>
+  </section>
+
+  <section class="section" id="questions" style="--hm: 2" aria-labelledby="questions-h">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="questions-h">以三個視角看六個問題</h2>
+      </div>
+      <div class="grid">
+        <article class="card card--row card--open span-4">
+          <h3>判斷每個平台是敵是友</h3>
+          <p>AQ1 與 AQ2（競合）：價值網中有哪些參與者？平台帶來讀者，還是搶走廣告主？</p>
+          <div class="panel" role="img" aria-label="YouTube 與 Facebook 被歸為互補者兼競爭者；Google 等待分類">
+            <div class="stage stage--fade-b"><div class="at-rise fit" style="--fit-max:340px;--ax:max(24px, 50% - 170px);--ay:40px;--ay-sm:24px" aria-hidden="true">
+              <div class="ui ui-panel ui-apps" data-ui="integrations">
+                <div class="ui-head"><div class="ui-title">價值網：平台</div><span class="ui-spacer"></span><div class="ui-meta" data-apps-count>已分類 2 個</div></div>
+                <ul class="ui-apps__list">
+                  <li class="ui-app is-on"><span class="ui-logo ui-logo--sm"><img data-icon="youtube" src="../assets/icons/youtube.svg" alt="" width="40" height="28" loading="lazy"></span><span class="ui-app__text"><span class="ui-app__name">YouTube</span><span class="ui-app__sub">48% 用來看新聞</span></span><span class="ui-app__state"><span class="ui-chip ui-app__on">兩者皆是</span><button class="ui-btn ui-btn--ghost ui-btn--sm ui-app__connect" type="button" tabindex="-1"><span class="ui-spin ui-app__spin" aria-hidden="true"></span><span>分類</span></button></span></li>
+                  <li class="ui-app is-on"><span class="ui-logo ui-logo--sm"><img data-icon="facebook" src="../assets/icons/facebook.svg" alt="" width="40" height="40" loading="lazy"></span><span class="ui-app__text"><span class="ui-app__name">Facebook</span><span class="ui-app__sub">47% 用來看新聞</span></span><span class="ui-app__state"><span class="ui-chip ui-app__on">兩者皆是</span><button class="ui-btn ui-btn--ghost ui-btn--sm ui-app__connect" type="button" tabindex="-1"><span class="ui-spin ui-app__spin" aria-hidden="true"></span><span>分類</span></button></span></li>
+                  <li class="ui-app" data-apps-target><span class="ui-logo ui-logo--sm"><img data-icon="google-icon" src="../assets/icons/google-icon.svg" alt="" width="39" height="40" loading="lazy"></span><span class="ui-app__text"><span class="ui-app__name">Google</span><span class="ui-app__sub">3 億元新聞基金</span></span><span class="ui-app__state"><span class="ui-chip ui-app__on">兩者皆是</span><button class="ui-btn ui-btn--ghost ui-btn--sm ui-app__connect" type="button" tabindex="-1"><span class="ui-spin ui-app__spin" aria-hidden="true"></span><span>分類</span></button></span></li>
+                </ul>
+              </div>
+            </div></div>
+          </div>
+        </article>
+        <article class="card card--row card--open span-4">
+          <h3>記錄 ETtoday 的行動與回應</h3>
+          <p>AQ3（競爭動態）：ETtoday 回應對手行動的速度有多快？誰率先出手？</p>
+          <div class="panel" role="img" aria-label="三筆行動紀錄：議價法草案送黨團協商、ETtoday 精簡人力、NOWnews 虧損">
+            <div class="stage stage--fade-b"><div class="at-rise fit" style="--fit-max:380px;--ax:24px;--ay:calc(100% - 180px);--ay-sm:calc(100% - 180px)" aria-hidden="true">
+              <div class="ui ui-notify" data-ui="notify">
+                <ul class="ui-notify__list" data-notify-list>
+                  <li class="ui-note"><span class="ui-avatar ui-note__av" data-tone="2">立</span><span class="ui-note__text"><span class="ui-note__title">立法院推進議價法<time>8/6</time></span><span class="ui-note__body">草案送交黨團協商</span></span></li>
+                  <li class="ui-note"><span class="ui-avatar ui-note__av" data-tone="1">ET</span><span class="ui-note__text"><span class="ui-note__title">ETtoday 人力減至 385<time>2025</time></span><span class="ui-note__body">原為 561，隨 AI 工具導入</span></span></li>
+                  <li class="ui-note"><span class="ui-avatar ui-note__av" data-tone="3">NW</span><span class="ui-note__text"><span class="ui-note__title">NOWnews 虧損 1.4 億元<time>2025</time></span><span class="ui-note__body">數位對手的全年虧損</span></span></li>
+                </ul>
+              </div>
+            </div></div>
+          </div>
+        </article>
+        <article class="card card--row card--open span-4">
+          <h3>用情境檢驗平台規則</h3>
+          <p>AQ4 至 AQ6：靠削減成本還是新營收？議價法會改變什麼？市場會不會傾向單一贏家？</p>
+          <div class="panel" role="img" aria-label="網站的情境面板：3 億元基金按使用量分配，以 ETtoday 每週使用率 38% 為代理指標">
+            <div class="stage stage--fade-b"><div class="at-rise fit" style="--fit-max:288px;--ax:max(24px, 50% - 144px);--ay:40px;--ay-sm:24px" aria-hidden="true" data-ui-loop>
+              <div class="ui ui-panel ui-slider" data-ui="slider">
+                <div class="ui-slider__head">
+                  <span class="ui-slider__name"><span class="ui-title">分潤情境</span><span class="ui-meta">情境推估，並非預測</span></span>
+                  <span class="ui-spacer"></span>
+                  <span class="ui-slider__reset">重設</span>
+                </div>
+                <div class="ui-slider__row">
+                  <div class="ui-slider__top"><span>按使用量分配的基金</span><output data-slider-val>3 億元</output></div>
+                  <div class="ui-slider__track" data-slider-track style="--v:0.3"><i class="ui-slider__fill"></i><i class="ui-slider__thumb"></i></div>
+                </div>
+                <div class="ui-slider__row">
+                  <div class="ui-slider__top"><span>ETtoday 每週使用率</span><output>38%</output></div>
+                  <div class="ui-slider__track" style="--v:0.38"><i class="ui-slider__fill"></i><i class="ui-slider__thumb"></i></div>
+                </div>
+              </div>
+            </div></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section ground-inverse" id="pipeline" style="--hm: 2" data-moment="iris-opens" data-moment-opts='{"from": "base"}' aria-labelledby="pipeline-h">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="pipeline-h">從公開資料到網頁的七個步驟。<span class="muted">每一列皆經組員簽核。</span></h2>
+      </div>
+      <div class="frame frame--band">
+        <div class="dg" data-diagram data-dg-still><script type="application/json">{"layout":"lanes","alt":"公開資料交給工作代理人，同時標記新聞列、擷取數據並計算回應時間差。","input":{"label":"來源","icon":"ui:globe","sub":"MOPS、DNR、DMA"},"core":{"label":"工作代理人","icon":"claude"},"lanes":[{"label":"已標記","icon":"google-sheets","done":true,"sub":"暫存分頁"},{"label":"指標","icon":"ui:table","done":true,"sub":"附來源"},{"label":"時間差","icon":"ui:timer","done":true,"sub":"每次行動的天數"}]}</script></div>
+      </div>
+      <div class="grid pipe-steps">
+        <div class="span-4 stack-2"><p class="t-card">逐列查核</p><p>組員逐一查核已標記的資料列；未通過者退回來源修正，並重新計算。</p></div>
+        <div class="span-4 stack-2"><p class="t-card">建置網站</p><p>Claude Code 以查核後匯出為 JSON 的資料表建置 Vue 網站。</p></div>
+        <div class="span-4 stack-2"><p class="t-card">每週發布</p><p>GitHub Actions 將網站部署至 GitHub Pages，再由兩位組員檢查中英文版本與行動裝置畫面。</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="stack" style="--hm: 2" aria-labelledby="stack-h">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="stack-h">五層技術架構。<span class="muted">網站無需伺服器即可運作。</span></h2>
+      </div>
+      <div class="frame frame--stack">
+        <ol class="stack-layers" aria-label="各層使用的技術">
+          <li class="stack-layer"><h3 class="t-card">AI 代理人</h3><ul class="stack-tools"><li class="stack-tool"><span class="ic-tile ic-tile--48"><img class="ic ic-40" data-icon="claude" src="../assets/icons/claude.svg" alt="" width="40" height="40" loading="lazy"></span>Claude</li><li class="stack-tool"><span class="ic-tile ic-tile--48"><img class="ic ic-40 ic-land" data-icon="claude-code" src="../assets/icons/claude-code.svg" alt="" width="40" height="25" loading="lazy"></span>Claude Code -> (Harness)</li></ul><p>標記資料列並建置網站</p></li>
+          <li class="stack-layer"><h3 class="t-card">資料</h3><ul class="stack-tools"><li class="stack-tool"><span class="ic-tile ic-tile--48"><img class="ic ic-40 ic-tall" data-icon="google-sheets" src="../assets/icons/google-sheets.svg" alt="" width="30" height="40" loading="lazy"></span>Google Sheets</li><li class="stack-tool"><span class="ic-tile ic-tile--48"><img class="ic ic-40" data-icon="json" src="../assets/icons/json.svg" alt="" width="40" height="40" loading="lazy"></span>JSON</li></ul><p>暫存與已查核分頁，匯出為 JSON</p></li>
+          <li class="stack-layer"><h3 class="t-card">前端</h3><ul class="stack-tools"><li class="stack-tool"><span class="ic-tile ic-tile--48"><img class="ic ic-40" data-icon="vue" src="../assets/icons/vue.svg" alt="" width="40" height="35" loading="lazy"></span>Vue</li><li class="stack-tool"><span class="ic-tile ic-tile--48"><img class="ic ic-40 ic-land" data-icon="vitejs" src="../assets/icons/vitejs.svg" alt="" width="40" height="25" loading="lazy"></span>Vite</li><li class="stack-tool"><span class="ic-tile ic-tile--48"><img class="ic ic-40" data-icon="javascript" src="../assets/icons/javascript.svg" alt="" width="40" height="40" loading="lazy"></span>JavaScript</li><li class="stack-tool"><span class="ic-tile ic-tile--48"><img class="ic ic-40" data-icon="html" src="../assets/icons/html.svg" alt="" width="40" height="40" loading="lazy"></span>HTML</li><li class="stack-tool"><span class="ic-tile ic-tile--48"><img class="ic ic-40" data-icon="css" src="../assets/icons/file-css.svg" alt="" width="40" height="40" loading="lazy"></span>CSS</li></ul><p>雙語單頁應用程式</p></li>
+          <li class="stack-layer"><h3 class="t-card">託管</h3><ul class="stack-tools"><li class="stack-tool"><span class="ic-tile ic-tile--48"><img class="ic ic-40 ic-ink" data-icon="github" src="../assets/icons/github.svg" alt="" width="40" height="39" loading="lazy"></span>GitHub</li><li class="stack-tool"><span class="ic-tile ic-tile--48"><img class="ic ic-40" data-icon="github-actions" src="../assets/icons/github-actions.svg" alt="" width="40" height="40" loading="lazy"></span>GitHub Actions</li><li class="stack-tool"><span class="ic-tile ic-tile--48 ic-tile--wide"><img class="ic ic-40 ic-wide ic-ink" data-icon="si:githubpages" src="../assets/icons/githubpages.svg" alt="GitHub Pages" width="40" height="8" loading="lazy"></span></li></ul><p>每次推送皆自動建置並發布</p></li>
+          <li class="stack-layer"><h3 class="t-card">影片</h3><ul class="stack-tools"><li class="stack-tool">HyperFrames</li><li class="stack-tool"><span class="ic-tile ic-tile--48 ic-tile--wide"><img class="ic ic-40 ic-wide" data-icon="si:fishaudio" src="../assets/icons/fishaudio.svg" alt="" width="40" height="15" loading="lazy"></span>Fish.Audio</li><li class="stack-tool"><span class="ic-tile ic-tile--48"><img class="ic ic-40" data-icon="logos:ffmpeg-icon" src="../assets/icons/ffmpeg-icon.svg" alt="" width="40" height="38" loading="lazy"></span>FFmpeg</li><li class="stack-tool">Epidemic Sound</li></ul><p>動畫、旁白、字幕與授權音樂</p></li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="sources" aria-labelledby="sources-h">
+    <div class="wrap">
+      <div class="grid grid--top">
+        <div class="span-5 stack-5">
+          <h2 id="sources-h">ETtoday 資料的四種公開來源</h2>
+          <p class="t-lead">沒有單一資料庫能完整涵蓋 ETtoday，因此每筆數據皆來自公開紀錄、調查報告、時間序列或新聞本身。</p>
+          <ul class="stack-3">
+            <li>東森國際（2614）的公開資訊觀測站申報、經濟部商工登記、立法院開放資料</li>
+            <li>路透新聞學研究所 2024–2026 數位新聞報告、TWNIC 2025、DMA 廣告量</li>
+            <li>流量結構、營收、Google 搜尋趨勢、YouTube 上傳、App 評論</li>
+            <li>自 2025 年 1 月起每則新聞一列，均附原文連結</li>
+          </ul>
+          <p><a class="link" href="#faq">查看仍待驗證的項目</a></p>
+        </div>
+        <div class="frame frame--split span-6 start-7" role="img" aria-label="資料表背後的 12 個來源：年報、數位新聞報告、DMA 與 TWNIC 報告、立法院與政府開放資料、Google 搜尋趨勢、Sitemap、YouTube 上傳與 JSON 匯出">
+          <div class="stage stage--fade-br"><div class="at-corner wide" style="--w:680px;--ax:40px;--ay:40px" aria-hidden="true">
+            <div class="ui ui-files" data-ui="files" data-ui-still data-reading="正在讀取第 {n} 個，共 {total} 個">
+              <div class="ui-files__status"><span class="ui-dot"></span><span data-files-status>已讀取 12 個來源</span></div>
+              <ul class="ui-files__grid">
+                <li class="ui-file is-done"><span class="ui-file__icon"><img data-icon="google-sheets" src="../assets/icons/google-sheets.svg" alt="" width="30" height="40" loading="lazy"></span><span class="ui-file__name">資料表</span><span class="ui-file__kind">Google Sheets</span><span class="ui-file__bar"><i></i></span><span class="ui-file__check"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4.5 8.2 2.3 2.3 4.7-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></li>
+                <li class="ui-file is-done"><span class="ui-file__icon"><img data-icon="pdf" src="../assets/icons/pdf.svg" alt="" width="40" height="40" loading="lazy"></span><span class="ui-file__name">東森國際 114年度年報</span><span class="ui-file__kind">MOPS</span><span class="ui-file__bar"><i></i></span><span class="ui-file__check"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4.5 8.2 2.3 2.3 4.7-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></li>
+                <li class="ui-file is-done"><span class="ui-file__icon"><img data-icon="pdf" src="../assets/icons/pdf.svg" alt="" width="40" height="40" loading="lazy"></span><span class="ui-file__name">數位新聞報告 2026</span><span class="ui-file__kind">路透新聞學研究所</span><span class="ui-file__bar"><i></i></span><span class="ui-file__check"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4.5 8.2 2.3 2.3 4.7-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></li>
+                <li class="ui-file is-done"><span class="ui-file__icon"><img data-icon="youtube" src="../assets/icons/youtube.svg" alt="" width="40" height="28" loading="lazy"></span><span class="ui-file__name">頻道上傳</span><span class="ui-file__kind">YouTube Data API</span><span class="ui-file__bar"><i></i></span><span class="ui-file__check"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4.5 8.2 2.3 2.3 4.7-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></li>
+                <li class="ui-file is-done"><span class="ui-file__icon"><img data-icon="pdf" src="../assets/icons/pdf.svg" alt="" width="40" height="40" loading="lazy"></span><span class="ui-file__name">數位廣告量統計 2025</span><span class="ui-file__kind">DMA</span><span class="ui-file__bar"><i></i></span><span class="ui-file__check"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4.5 8.2 2.3 2.3 4.7-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></li>
+                <li class="ui-file is-done"><span class="ui-file__icon"><img data-icon="pdf" src="../assets/icons/pdf.svg" alt="" width="40" height="40" loading="lazy"></span><span class="ui-file__name">台灣網路報告 2025</span><span class="ui-file__kind">TWNIC</span><span class="ui-file__bar"><i></i></span><span class="ui-file__check"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4.5 8.2 2.3 2.3 4.7-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></li>
+                <li class="ui-file is-done"><span class="ui-file__icon"><img data-icon="json" src="../assets/icons/json.svg" alt="" width="40" height="40" loading="lazy"></span><span class="ui-file__name">媒體議價法審查</span><span class="ui-file__kind">立法院開放資料</span><span class="ui-file__bar"><i></i></span><span class="ui-file__check"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4.5 8.2 2.3 2.3 4.7-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></li>
+                <li class="ui-file is-done"><span class="ui-file__icon"><img data-icon="xlsx" src="../assets/icons/xlsx.svg" alt="" width="40" height="40" loading="lazy"></span><span class="ui-file__name">NCC 資料集</span><span class="ui-file__kind">政府資料開放平臺</span><span class="ui-file__bar"><i></i></span><span class="ui-file__check"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4.5 8.2 2.3 2.3 4.7-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></li>
+                <li class="ui-file is-done"><span class="ui-file__icon"><img data-icon="xlsx" src="../assets/icons/xlsx.svg" alt="" width="40" height="40" loading="lazy"></span><span class="ui-file__name">品牌搜尋熱度</span><span class="ui-file__kind">Google 搜尋趨勢</span><span class="ui-file__bar"><i></i></span><span class="ui-file__check"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4.5 8.2 2.3 2.3 4.7-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></li>
+                <li class="ui-file is-done"><span class="ui-file__icon"><img data-icon="xml" src="../assets/icons/xml.svg" alt="" width="40" height="40" loading="lazy"></span><span class="ui-file__name">每月文章數</span><span class="ui-file__kind">Sitemap</span><span class="ui-file__bar"><i></i></span><span class="ui-file__check"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4.5 8.2 2.3 2.3 4.7-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></li>
+                <li class="ui-file is-done"><span class="ui-file__icon"><img data-icon="pdf" src="../assets/icons/pdf.svg" alt="" width="40" height="40" loading="lazy"></span><span class="ui-file__name">數位經濟競爭政策白皮書</span><span class="ui-file__kind">公平會</span><span class="ui-file__bar"><i></i></span><span class="ui-file__check"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4.5 8.2 2.3 2.3 4.7-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></li>
+                <li class="ui-file is-done"><span class="ui-file__icon"><img data-icon="json" src="../assets/icons/json.svg" alt="" width="40" height="40" loading="lazy"></span><span class="ui-file__name">verified.json</span><span class="ui-file__kind">GitHub</span><span class="ui-file__bar"><i></i></span><span class="ui-file__check"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4.5 8.2 2.3 2.3 4.7-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></li>
+              </ul>
+            </div>
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq" style="--hm: 2" aria-labelledby="faq-h">
+    <div class="wrap">
+      <div class="grid grid--top">
+        <div class="span-5 stack-4">
+          <h2 id="faq-h">常見問題</h2>
+          <p class="muted">專題範圍、限制與分工。</p>
+          <p><a class="link" href="mailto:group4@ettoday-study.example">寫信給第四組</a></p>
+          <div class="ic-grid ic-grid--mosaic ic-grid--cols-2" aria-label="本組使用的工具"><div class="ic-cell"><span class="ic-tile ic-tile--40"><img class="ic ic-40" data-icon="claude" src="../assets/icons/claude.svg" alt="Claude" width="40" height="40" loading="lazy"></span><div><div class="ic-cell__name">Claude</div><div class="ic-cell__meta">標記與草擬</div></div></div><div class="ic-cell"><span class="ic-tile ic-tile--40"><img class="ic ic-40 ic-tall" data-icon="google-sheets" src="../assets/icons/google-sheets.svg" alt="Google Sheets" width="30" height="40" loading="lazy"></span><div><div class="ic-cell__name">Google Sheets</div><div class="ic-cell__meta">資料表</div></div></div><div class="ic-cell"><span class="ic-tile ic-tile--40"><img class="ic ic-40" data-icon="vue" src="../assets/icons/vue.svg" alt="Vue.js" width="40" height="35" loading="lazy"></span><div><div class="ic-cell__name">Vue.js</div><div class="ic-cell__meta">網站</div></div></div><div class="ic-cell"><span class="ic-tile ic-tile--40"><img class="ic ic-40 ic-ink" data-icon="github" src="../assets/icons/github.svg" alt="GitHub" width="40" height="39" loading="lazy"></span><div><div class="ic-cell__name">GitHub</div><div class="ic-cell__meta">Pages 與 Actions</div></div></div></div>
+        </div>
+        <div class="faq span-6 start-7">
+          <div class="faq__item"><h3>本專題不涵蓋哪些內容？</h3><p>電視收視率、紙本發行量與新聞品質。本專題涵蓋 ETtoday 在台灣的網站與 App，期間為 2025 年 1 月至 2026 年 12 月。</p></div>
+          <div class="faq__item"><h3>ETtoday 的每筆數據都驗證過了嗎？</h3><p>尚未全部驗證。單日造訪高峰 1,900 萬與 App 下載 673 萬為 ETtoday 自行公布的數字，網站會清楚標示。</p></div>
+          <div class="faq__item"><h3>第四組如何分工？</h3><p>共分三組、每組兩人：資料（來源與查核）、策略分析（財務、PARTS 與價值網），以及網站與影片（網站、影片與 GitHub Pages）。</p></div>
+          <div class="faq__item"><h3>第四組如何使用 AI？</h3><p>Claude 協助草擬並修訂部分提案與本頁內容。所有事實皆由組員對照來源查核，最終文字由本組負責。</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer closing footer--statement g2m" id="contact" aria-labelledby="close-h">
+  <div class="wrap">
+    <div class="closing__cta close--word">
+      <div class="section-head--split">
+        <div><h2 id="close-h">逐項檢驗 ETtoday 的轉虧為盈</h2><p class="t-lead">第 12 週完成資料蒐集，第 16 週網頁競賽前的週末正式上線。</p></div>
+        <a class="btn btn--primary" href="#questions">閱讀六個問題<svg class="m-arrow" viewBox="0 0 12 12" aria-hidden="true"><path class="m-arrow__stem" d="M1 6h8"/><path class="m-arrow__head" d="M4.5 2.5 8 6l-3.5 3.5"/></svg></a>
+      </div>
+      <p class="close__word" aria-hidden="true">Group 4</p>
+    </div>
+    <div class="closing__links">
+      <div class="grid">
+        <div class="span-4 stack-4">
+          <a class="nav__logo" href="#top"><span class="mark" data-mark="ring" aria-hidden="true"></span>Group 4</a>
+          <p class="footer__lede">ETtoday 平台策略分析，CDPS-EMI 1151。</p>
+        </div>
+        <div class="span-2 footer__col"><h3>專題</h3><ul><li><a href="#site">網站</a></li><li><a href="#market">市場</a></li><li><a href="#question">核心問題</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>方法</h3><ul><li><a href="#questions">六個問題</a></li><li><a href="#pipeline">資料流程</a></li><li><a href="#stack">技術架構</a></li><li><a href="#sources">資料來源</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>更多</h3><ul><li><a href="#faq">常見問題</a></li><li><a href="../" hreflang="en" lang="en">English</a></li></ul></div>
+        <div class="span-2 footer__col"><h3>聯絡</h3><ul><li><a href="mailto:group4@ettoday-study.example">寫信給第四組</a></li></ul></div>
+      </div>
+      <div class="footer__legal">
+        <span>&copy; 2026 Group 4，CDPS-EMI 1151。產品名稱與標誌為各所有者之商標。</span>
+        <div class="socials"></div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="../assets/system.js"></script>
+<script type="module" src="../assets/motion/motion.js"></script>
+<script type="module" src="../assets/layout/layout.js"></script>
+<script type="module" src="../assets/diagrams/mount.js"></script>
+</body>
+</html>
